@@ -1,7 +1,7 @@
 {
     "APPLICATION": {
-        "HOST": "localhost",
-        "PORT": "8000",
-        "DEBUG": true
+        "HOST": "",
+        "PORT": "",
+        "DEBUG": false
     }
 }
