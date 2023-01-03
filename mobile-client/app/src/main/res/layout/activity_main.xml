@@ -6,13 +6,33 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Welcome to Sermo!"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <Button
+        android:id="@+id/generate_report_button"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="148dp"
+        android:backgroundTint="@color/primary_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="Generate report"
+        android:textAllCaps="false"
+        app:cornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/query_reports_button"
+        android:layout_width="250dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="50dp"
+        android:backgroundTint="@color/primary_button"
+        android:fontFamily="sans-serif-medium"
+        android:text="Query reports"
+        android:textAllCaps="false"
+        app:cornerRadius="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.503"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/generate_report_button" />
 </androidx.constraintlayout.widget.ConstraintLayout>
