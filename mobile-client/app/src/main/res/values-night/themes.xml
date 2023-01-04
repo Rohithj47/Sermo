@@ -3,5 +3,6 @@
     <style name="Theme.Sermo" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:background">@color/primary_background</item>
+        <item name="android:textColorHint">@color/text_hint</item>
     </style>
 </resources>
