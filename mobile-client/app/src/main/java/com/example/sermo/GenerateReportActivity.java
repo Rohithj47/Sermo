@@ -27,6 +27,9 @@ import java.io.File;
 import java.io.FileDescriptor;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -39,136 +42,141 @@ import retrofit2.Response;
 public class GenerateReportActivity extends AppCompatActivity {
 
     ActivityResultLauncher<Intent> resultLauncher;
-    ImageButton btSelect;
-
-    private static byte[] readUri(Context context, Uri uri) throws IOException {
-        ParcelFileDescriptor pdf = context.getContentResolver().openFileDescriptor(uri, "r");
-
-        assert pdf != null;
-        assert pdf.getStatSize() <= Integer.MAX_VALUE;
-        byte[] data = new byte[(int) pdf.getStatSize()];
-
-        FileDescriptor fd = pdf.getFileDescriptor();
-        FileInputStream fileStream = new FileInputStream(fd);
-        fileStream.read(data);
-
-        return data;
-    }
+    enum RecordingType {
+        PATIENT_RECORDING, SURGERY_CONVERSATION, DOCTOR_REVIEW
+    };
+    RecordingType selectedFile;
+    HashMap<RecordingType, Uri> selectedFileUris;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_generate_report);
-
-        btSelect = findViewById(R.id.PatientInformationSearchButton);
-
+        selectedFileUris = new HashMap<>();
         resultLauncher = registerForActivityResult(
             new ActivityResultContracts.StartActivityForResult(),
-            new ActivityResultCallback<ActivityResult>() {
-                @Override
-                public void onActivityResult(ActivityResult result) {
-                    // Initialize result data
+                result -> {
                     Intent data = result.getData();
-                    // When data is not equal to empty
                     if (data != null) {
-                        // Get PDf uri
                         Uri sUri = data.getData();
-                        // Get PDF path
-                        String sPath = sUri.getPath();
-                        File file = new File(sUri.getPath());
-                        final String[] split = file.getPath().split(":");
-                        String filePath = split[1];
-                        Log.d("SELECTED FILE", sPath + ", " + sPath + ", " + filePath + ", " + sUri);
-                        Cursor returnCursor =
-                                getContentResolver().query(sUri, null, null, null, null);
-                        /*
-                         * Get the column indexes of the data in the Cursor,
-                         * move to the first row in the Cursor, get the data,
-                         * and display it.
-                         */
-                        int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
-                        int sizeIndex = returnCursor.getColumnIndex(OpenableColumns.SIZE);
-                        returnCursor.moveToFirst();
-                        Log.d("SELECTED FILE INFO", returnCursor.getString(nameIndex) + ", " + Long.toString(returnCursor.getLong(sizeIndex)));
-                        TextView tv = findViewById(R.id.PatientInformationFilePath);
-                        tv.setText(returnCursor.getString(nameIndex));
-                        File f = new File(returnCursor.getString(nameIndex));
-                        Log.d("SELECTED FILE PATH", f.getAbsolutePath());
-                        RequestBody reqBody = null;
-                        try {
-                            reqBody = RequestBody.create(MediaType.parse("multipart/form-file"), readUri(GenerateReportActivity.this, sUri));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        MultipartBody.Part partImage = MultipartBody.Part.createFormData("file", file.getName(), reqBody);
-                        API api = RetrofitClient.getInstance().getAPI();
-                        Call<ResponseBody> upload = api.uploadImage(partImage);
-                        upload.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                if(response.isSuccessful()) {
-                                    Toast.makeText(GenerateReportActivity.this, "Image Uploaded", Toast.LENGTH_SHORT).show();
-                                    Intent main = new Intent(GenerateReportActivity.this, GenerateReportActivity.class);
-                                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                                    startActivity(main);
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                Toast.makeText(GenerateReportActivity.this, "Request failed" + t.toString(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                        selectedFileUris.put(selectedFile, sUri);
                     }
-                }
-            });
+                });
+    }
 
-        btSelect.setOnClickListener(new View.OnClickListener() {
+    public void onPatientInformationButtonClick(View view) {
+        selectedFile = RecordingType.PATIENT_RECORDING;
+        handleFileRead();
+    }
+
+    public void onSurgeryRecordingButtonClick(View view) {
+        selectedFile = RecordingType.SURGERY_CONVERSATION;
+        handleFileRead();
+    }
+
+    public void onDoctorReviewButtonClick(View view) {
+        selectedFile = RecordingType.DOCTOR_REVIEW;
+        handleFileRead();
+    }
+
+    public void onGenerateButtonClick(View view) {
+        for (Map.Entry<RecordingType, Uri> entry : selectedFileUris.entrySet()) {
+            Log.d(entry.getKey().toString(), entry.getValue().toString());
+        }
+        File patientRecording = new File(selectedFileUris.get(RecordingType.PATIENT_RECORDING).getPath());
+        File surgeryConversation = new File(selectedFileUris.get(RecordingType.SURGERY_CONVERSATION).getPath());
+        File doctorReview = new File(selectedFileUris.get(RecordingType.DOCTOR_REVIEW).getPath());
+
+        MediaType mediaType = MediaType.parse("");
+        MultipartBody.Part[] fileParts = new MultipartBody.Part[3];
+        RequestBody fileBody;
+
+        try {
+            fileBody = RequestBody.create(mediaType, readFileFromUri(GenerateReportActivity.this,
+                    selectedFileUris.get(RecordingType.PATIENT_RECORDING)));
+            fileParts[0] = MultipartBody.Part.createFormData("patient_recording",
+                    patientRecording.getName(), fileBody);
+
+            fileBody = RequestBody.create(mediaType, readFileFromUri(GenerateReportActivity.this,
+                    selectedFileUris.get(RecordingType.SURGERY_CONVERSATION)));
+            fileParts[1] = MultipartBody.Part.createFormData("surgery_conversation",
+                    surgeryConversation.getName(), fileBody);
+
+            fileBody = RequestBody.create(mediaType, readFileFromUri(GenerateReportActivity.this,
+                    selectedFileUris.get(RecordingType.DOCTOR_REVIEW)));
+            fileParts[2] = MultipartBody.Part.createFormData("doctor_review",
+                    doctorReview.getName(), fileBody);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        API api = RetrofitClient.getInstance().getAPI();
+        Call<ResponseBody> upload = api.uploadImage(fileParts);
+        upload.enqueue(new Callback<ResponseBody>() {
             @Override
-            public void onClick(View view) {
-                // When permission is not granted
-                if (ActivityCompat.checkSelfPermission(GenerateReportActivity.this,
-                        Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
-                    // Result permission
-                    ActivityCompat.requestPermissions(
+            public void onResponse(Call<ResponseBody> call,
+                                   Response<ResponseBody> response) {
+                if(response.isSuccessful()) {
+                    Toast.makeText(GenerateReportActivity.this,
+                            "Image Uploaded", Toast.LENGTH_SHORT).show();
+                    Intent main = new Intent(
                             GenerateReportActivity.this,
-                            new String[] { Manifest.permission.READ_EXTERNAL_STORAGE },
-                            1);
+                            GenerateReportActivity.class);
+                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK
+                            | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(main);
                 }
-                // When permission is granted
-                else {
-                    // Create method
-                    selectFile();
-                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("ERROR", t.toString());
+                Toast.makeText(GenerateReportActivity.this,
+                        "Request failed" + t.toString(),
+                        Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == 1 && grantResults.length > 0 && grantResults[0]
+                == PackageManager.PERMISSION_GRANTED) {
+            selectFile();
+        }
+        else {
+            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT)
+                    .show();
+        }
+    }
+
+    private static byte[] readFileFromUri(Context context, Uri uri) throws IOException {
+        ParcelFileDescriptor pdf = context.getContentResolver().openFileDescriptor(uri, "r");
+        assert pdf != null;
+        assert pdf.getStatSize() <= Integer.MAX_VALUE;
+        byte[] data = new byte[(int) pdf.getStatSize()];
+        FileDescriptor fd = pdf.getFileDescriptor();
+        FileInputStream fileStream = new FileInputStream(fd);
+        fileStream.read(data);
+        return data;
+    }
+
     private void selectFile() {
-        // Initialize intent
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        // set type
         intent.setType("application/pdf");
-        // Launch intent
         if(resultLauncher !=null)
             resultLauncher.launch(intent);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
-            @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        // When permission is granted
-        if (requestCode == 1 && grantResults.length > 0 && grantResults[0]
-                == PackageManager.PERMISSION_GRANTED) {
-            // Call method
-            selectFile();
+    private void handleFileRead() {
+        if (ActivityCompat.checkSelfPermission(GenerateReportActivity.this,
+                Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(GenerateReportActivity.this, new String[] {
+                    Manifest.permission.READ_EXTERNAL_STORAGE }, 1);
         }
-        // When permission is denied
         else {
-            // Display toast
-            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT)
-                    .show();
+            selectFile();
         }
     }
 }

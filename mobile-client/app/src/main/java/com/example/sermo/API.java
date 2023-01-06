@@ -11,5 +11,5 @@ public interface API {
     @Multipart
     // POST request to upload an image from storage
     @POST("test/")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part file);
+    Call<ResponseBody> uploadImage(@Part MultipartBody.Part[] files);
 }
