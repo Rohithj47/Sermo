@@ -9,6 +9,8 @@ from transformers import Wav2Vec2ForCTC, Wav2Vec2Tokenizer
 
 app = Flask(__name__)
 
+file_names = ["file1", "file2", "file3"]
+
 @app.route('/hi')
 def hello():
     return "Hi!"
@@ -17,14 +19,21 @@ def hello():
 def summarize():
     if request.method == "POST":
         if request.files:
-            file = request.files["files"]
-            m4a_path = os.path.join('static/m4a_recordings', file.filename)
-            wav_file = os.path.join('static/wav_files', file.filename)
-            file.save(m4a_path)
-            track = AudioSegment.from_file(m4a_path,  format= 'm4a')
-            file_handle = track.export(wav_file, format='wav')
+            files = []
+            m4a_paths = []
+            wav_paths = []
+            final_patient_record = ""
+            for i in range(len(file_names)):
+                files.append(request.files[file_names[i]])
+            for i in range(len(files)):
+                m4a_paths.append(os.path.join('static/m4a_recordings', files[i].filename))
+                wav_paths.append(os.path.join('static/wav_files', files[i].filename))
+                files[i].save(m4a_paths[i])
+                track = AudioSegment.from_file(m4a_paths[i],  format= 'm4a')
+                track.export(wav_paths[i], format='wav')
+                final_patient_record += condensed_text(wav_paths[i])
 
-            return condensed_text(wav_file)
+        return final_patient_record             
 
 
 def condensed_text(path):
@@ -42,7 +51,7 @@ if __name__ == '__main__':
     CONFIG["DEBUG"] = True
 
     # Initialize stuff here
-    summarizer = pipeline("summarization", model="facebook/bart-large-cnn")
+    summarizer = pipeline("summarization", model="google/pegasus-xsum")
     #load pre-trained model and tokenizer
     tokenizer = Wav2Vec2Tokenizer.from_pretrained("facebook/wav2vec2-base-960h")
     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
