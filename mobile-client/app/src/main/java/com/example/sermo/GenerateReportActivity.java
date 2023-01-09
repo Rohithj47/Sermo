@@ -87,7 +87,7 @@ public class GenerateReportActivity extends AppCompatActivity {
         File surgeryConversation = new File(selectedFileUris.get(RecordingType.SURGERY_CONVERSATION).getPath());
         File doctorReview = new File(selectedFileUris.get(RecordingType.DOCTOR_REVIEW).getPath());
 
-        MediaType mediaType = MediaType.parse("");
+        MediaType mediaType = MediaType.parse("audio/*");
         MultipartBody.Part[] fileParts = new MultipartBody.Part[3];
         RequestBody fileBody;
 
@@ -164,7 +164,7 @@ public class GenerateReportActivity extends AppCompatActivity {
 
     private void selectFile() {
         Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.setType("application/pdf");
+        intent.setType("audio/*");
         if(resultLauncher !=null)
             resultLauncher.launch(intent);
     }

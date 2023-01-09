@@ -10,7 +10,7 @@
         android:id="@+id/headingText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="sans-serif-medium"
         android:text="Generate report"
         android:textColor="@color/black"
