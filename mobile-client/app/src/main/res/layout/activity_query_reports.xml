@@ -7,6 +7,22 @@
     android:verticalScrollbarPosition="right"
     tools:context=".QueryReportsActivity">
 
+    <Button
+        android:id="@+id/queryButton"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primary_button"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="onQueryButtonClick"
+        android:text="Query"
+        android:textAllCaps="false"
+        app:cornerRadius="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.456"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchChipGroup" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"

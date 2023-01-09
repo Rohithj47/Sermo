@@ -3,6 +3,7 @@ package com.example.sermo;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
@@ -10,6 +11,8 @@ import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+
+import java.util.List;
 
 public class QueryReportsActivity extends AppCompatActivity {
 
@@ -34,5 +37,14 @@ public class QueryReportsActivity extends AppCompatActivity {
         ChipGroup chipGroup = findViewById(R.id.searchChipGroup);
         chipGroup.addView(chip);
         textView.setText("");
+    }
+
+    public void onQueryButtonClick(View view) {
+        ChipGroup chipGroup = findViewById(R.id.searchChipGroup);
+        chipGroup.chi
+        List<Integer> chipIds = chipGroup.getCheckedChipIds();
+        for (int id : chipIds) {
+            Log.d("CHIP ID: ", Integer.toString(id));
+        }
     }
 }
