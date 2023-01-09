@@ -15,7 +15,6 @@ ffmpeg==1.4
 ffprobe==0.5
 filelock==3.9.0
 Flask==2.2.2
-flask-ngrok==0.0.25
 huggingface-hub==0.11.1
 idna==3.4
 importlib-metadata==6.0.0
