@@ -2,15 +2,20 @@ package com.example.sermo;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+
+import org.w3c.dom.Text;
 
 import java.util.HashSet;
 
@@ -69,5 +74,21 @@ public class QueryReportsActivity extends AppCompatActivity {
                 Log.d("ERROR", t.toString());
             }
         });
+        populateSearchResultsContainer(view);
+    }
+
+    private void populateSearchResultsContainer(View view) {
+        LinearLayout searchResultsContainer = findViewById(R.id.searchResultsContainer);
+        for (String tag : tags) {
+            TextView textView = new TextView(QueryReportsActivity.this);
+            textView.setText(tag + "\n" + "test" + "\n");
+            textView.setTextColor(Color.BLACK);
+            textView.setOnClickListener(v -> {
+                Intent intent = new Intent(this, ViewReportActivity.class);
+                intent.putExtra("tag", tag);
+                startActivity(intent);
+            });
+            searchResultsContainer.addView(textView);
+        }
     }
 }

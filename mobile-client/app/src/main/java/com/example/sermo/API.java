@@ -9,11 +9,11 @@ import retrofit2.http.POST;
 import retrofit2.http.Part;
 
 public interface API {
-    // POST request to upload an image from storage
+
     @Multipart
     @POST("summarize/")
-    Call<ResponseBody> uploadImage(@Part MultipartBody.Part[] files);
+    Call<ResponseBody> uploadFiles(@Part MultipartBody.Part[] files);
 
-    @POST("values/")
+    @POST("search/")
     Call<ResponseBody> queryByTags(@Body QueryBody queryBody);
 }
