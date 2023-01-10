@@ -1,8 +1,12 @@
 package com.example.sermo;
 
+import static android.app.PendingIntent.getActivity;
+
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -41,7 +45,8 @@ public class QueryReportsActivity extends AppCompatActivity {
         chip.setText(textView.getText());
         this.tags.add(textView.getText().toString());
         chip.setCloseIconVisible(true);
-        chip.setSelected(true);
+        chip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary_text)));
+        // chip.setChipBackgroundColorResource(android.R.color.transparent);
         chip.setOnClickListener(v -> {
             ViewParent parent = v.getParent();
             if (parent instanceof ViewGroup) {
@@ -81,8 +86,13 @@ public class QueryReportsActivity extends AppCompatActivity {
         LinearLayout searchResultsContainer = findViewById(R.id.searchResultsContainer);
         for (String tag : tags) {
             TextView textView = new TextView(QueryReportsActivity.this);
-            textView.setText(tag + "\n" + "test" + "\n");
-            textView.setTextColor(Color.BLACK);
+            String textViewContent = "".concat("Fullname, Age, Sex")
+                    .concat("\n")
+                    .concat("Peek content ")
+                    .concat("(").concat(tag).concat(")")
+                    .concat("\n").concat("\n");
+            textView.setText(textViewContent);
+            textView.setTextColor(ContextCompat.getColor(this, R.color.primary_text));
             textView.setOnClickListener(v -> {
                 Intent intent = new Intent(this, ViewReportActivity.class);
                 intent.putExtra("tag", tag);

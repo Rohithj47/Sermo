@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -54,7 +55,25 @@ public class GenerateReportActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     if (data != null) {
                         Uri sUri = data.getData();
+                        File file = new File(sUri.getPath());
                         selectedFileUris.put(selectedFile, sUri);
+                        TextView filepathDisplay;
+                        switch (selectedFile.toString()) {
+                            case "PATIENT_RECORDING":
+                                filepathDisplay = findViewById(R.id.PatientInformationFilePath);
+                                filepathDisplay.setText(file.getName());
+                                break;
+                            case "SURGERY_CONVERSATION":
+                                filepathDisplay = findViewById(R.id.SurgeryRecordingFilePath);
+                                filepathDisplay.setText(file.getName());
+                                break;
+                            case "DOCTOR_REVIEW":
+                                filepathDisplay = findViewById(R.id.DoctorReviewFilePath);
+                                filepathDisplay.setText(file.getName());
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 });
     }

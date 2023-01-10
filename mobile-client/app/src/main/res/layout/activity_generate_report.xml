@@ -5,68 +5,224 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    android:backgroundTint="#80FFFFFF"
+    android:backgroundTint="@color/background_tint"
     android:backgroundTintMode="src_over"
     tools:context=".GenerateReportActivity">
 
     <TextView
-        android:id="@+id/headingText"
+        android:id="@+id/PatientInformationHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
+        android:layout_marginTop="50dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-black"
+        android:text="Patient information"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PatientFullNameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
         android:fontFamily="sans-serif-medium"
-        android:text="Generate report"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:text="Full name"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
+        app:layout_constraintTop_toBottomOf="@+id/PatientInformationHeading" />
+
+    <EditText
+        android:id="@+id/PatientFullNameField"
+        android:layout_width="350dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
+        android:ems="10"
+        android:hint="Enter full name"
+        android:inputType="textPersonName"
+        android:padding="10dp"
+        android:textColor="@color/primary_text"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/PatientFullNameLabel" />
+
+    <TextView
+        android:id="@+id/PatientAgeLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Age"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
+        app:layout_constraintTop_toBottomOf="@+id/PatientFullNameField" />
+
+    <EditText
+        android:id="@+id/PatientAgeField"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/shape"
+        android:ems="10"
+        android:fontFamily="sans-serif-medium"
+        android:inputType="number"
+        android:textColor="@color/primary_text"
+        android:textSize="14sp"
+        app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
+        app:layout_constraintTop_toBottomOf="@+id/PatientAgeLabel" />
+
+    <TextView
+        android:id="@+id/PatientSexLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Sex"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
+        app:layout_constraintTop_toBottomOf="@+id/PatientAgeField" />
+
+    <RadioGroup
+        android:id="@+id/PatientSexRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:orientation="horizontal"
+        android:padding="2dp"
+        app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
+        app:layout_constraintTop_toBottomOf="@+id/PatientSexLabel">
+
+        <RadioButton
+            android:id="@+id/MaleRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Male"
+            android:textColor="@color/primary_text" />
+
+        <RadioButton
+            android:id="@+id/FemaleRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Female"
+            android:textColor="@color/primary_text" />
+
+        <RadioButton
+            android:id="@+id/OtherRadioButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:text="Other"
+            android:textColor="@color/primary_text" />
+    </RadioGroup>
+
+    <TextView
+        android:id="@+id/AudioRecordingsHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-black"
+        android:text="Audio recordings"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/PatientSexRadioGroup" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Consultation"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/AudioRecordingsHeading" />
 
     <LinearLayout
         android:id="@+id/PatientInformationLinearLayout"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/headingText">
+        app:layout_constraintTop_toBottomOf="@+id/textView">
+
+        <ImageButton
+            android:id="@+id/imageButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/presence_audio_away" />
 
         <TextView
             android:id="@+id/PatientInformationFilePath"
             android:layout_width="230dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="Patient information"
+            android:hint="No file selected"
             android:singleLine="true"
             android:textAlignment="textStart"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/darker_gray" />
 
         <ImageButton
             android:id="@+id/PatientInformationSearchButton"
             android:layout_width="40dp"
-            android:layout_height="50dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:backgroundTint="@color/primary_button"
             android:elevation="2dp"
             android:onClick="onPatientInformationButtonClick"
             android:scaleType="center"
             app:srcCompat="@android:drawable/ic_menu_search"
-            app:tint="@color/black" />
+            app:tint="@color/primary_button_text" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Operation"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/SurgeryRecordingLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/PatientInformationLinearLayout" />
 
     <LinearLayout
         android:id="@+id/SurgeryRecordingLinearLayout"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/PatientInformationLinearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/textView3">
+
+        <ImageButton
+            android:id="@+id/imageButton3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/presence_audio_away" />
 
         <TextView
             android:id="@+id/SurgeryRecordingFilePath"
@@ -74,33 +230,55 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="Surgery recording"
+            android:hint="No file selected"
             android:singleLine="true"
             android:textAlignment="textStart"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/darker_gray" />
 
         <ImageButton
             android:id="@+id/SurgeryRecordingSearchButton"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:backgroundTint="@color/primary_button"
             android:elevation="2dp"
             android:onClick="onSurgeryRecordingButtonClick"
             app:srcCompat="@android:drawable/ic_menu_search"
-            app:tint="@color/black" />
+            app:tint="@color/primary_button_text" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Doctor's review"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/DoctorReviewLinearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/SurgeryRecordingLinearLayout" />
 
     <LinearLayout
         android:id="@+id/DoctorReviewLinearLayout"
         android:layout_width="350dp"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
         android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/SurgeryRecordingLinearLayout">
+        app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+        <ImageButton
+            android:id="@+id/imageButton4"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/presence_audio_away" />
 
         <TextView
             android:id="@+id/DoctorReviewFilePath"
@@ -108,38 +286,40 @@
             android:layout_height="50dp"
             android:layout_weight="1"
             android:gravity="center"
-            android:hint="Doctor review"
+            android:hint="No file selected"
             android:singleLine="true"
             android:textAlignment="textStart"
-            android:textColor="@color/black" />
+            android:textColor="@android:color/darker_gray" />
 
         <ImageButton
             android:id="@+id/DoctorReviewSearchButton"
             android:layout_width="40dp"
             android:layout_height="50dp"
             android:layout_weight="1"
+            android:background="@android:color/transparent"
             android:backgroundTint="@color/primary_button"
             android:elevation="2dp"
             android:onClick="onDoctorReviewButtonClick"
             app:srcCompat="@android:drawable/ic_menu_search"
-            app:tint="@color/black" />
+            app:tint="@color/primary_button_text" />
     </LinearLayout>
 
     <Button
         android:id="@+id/GenerateButton"
         android:layout_width="170dp"
         android:layout_height="70dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="30dp"
         android:backgroundTint="@color/primary_button"
         android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.05"
         android:onClick="onGenerateButtonClick"
-        android:text="Generate"
+        android:text="Generate report"
         android:textAllCaps="false"
-        app:cornerRadius="50dp"
+        android:textColor="@color/primary_button_text"
+        app:cornerRadius="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/DoctorReviewLinearLayout" />
-
+        app:layout_constraintTop_toBottomOf="@+id/DoctorReviewLinearLayout"
+        app:rippleColor="@color/primary_button_ripple" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
