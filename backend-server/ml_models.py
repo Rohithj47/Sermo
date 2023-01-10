@@ -5,11 +5,14 @@ import librosa
 import torch
 
 
-summarizer = ""
-tokenizer = ""
-model = ""
+summarizer = None
+tokenizer = None
+model = None
 
 def init_models():
+    global summarizer 
+    global tokenizer
+    global model
     summarizer = pipeline("summarization", model="google/pegasus-xsum")
     tokenizer = Wav2Vec2Tokenizer.from_pretrained("facebook/wav2vec2-base-960h")
     model = Wav2Vec2ForCTC.from_pretrained("facebook/wav2vec2-base-960h")
@@ -23,8 +26,17 @@ def return_keywords(text):
 
 def condensed_text(path):
     speech, rate = librosa.load(path, sr = 16000)
-    input_values = tokenizer(speech, return_tensors = 'pt').input_values
-    logits = model(input_values).logits
-    predicted_ids = torch.argmax(logits, dim =-1)
-    transcriptions = tokenizer.decode(predicted_ids[0])
-    return summarizer(transcriptions, do_sample=False)
+    final_text = ""
+
+    splits = librosa.effects.split(speech, top_db=30)
+    for beg, end in splits:
+        y = speech[beg: end]
+        if len(y) < 10:
+            continue
+        input_values = tokenizer(y, return_tensors = 'pt').input_values
+        logits = model(input_values).logits
+        predicted_ids = torch.argmax(logits, dim =-1)
+        transcriptions = tokenizer.decode(predicted_ids[0])
+        final_text += " " + transcriptions
+    print("Converted text is", final_text.lower())
+    return summarizer(final_text.lower(), do_sample=False)[0]['summary_text']
