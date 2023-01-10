@@ -4,6 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
     tools:context=".MainActivity">
 
     <Button
@@ -16,7 +19,7 @@
         android:onClick="onGenerateReportButtonClick"
         android:text="Generate report"
         android:textAllCaps="false"
-        app:cornerRadius="50dp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
@@ -32,9 +35,21 @@
         android:onClick="onQueryReportsButtonClick"
         android:text="Query reports"
         android:textAllCaps="false"
-        app:cornerRadius="50dp"
+        app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.503"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/generate_report_button" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="181dp"
+        android:layout_height="441dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="-30dp"
+        android:alpha="0.8"
+        android:background="@android:color/transparent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/female_doctor" />
 </androidx.constraintlayout.widget.ConstraintLayout>

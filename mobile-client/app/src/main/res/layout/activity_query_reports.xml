@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:verticalScrollbarPosition="right"
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
     tools:context=".QueryReportsActivity">
 
     <Button
