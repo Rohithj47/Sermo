@@ -7,11 +7,27 @@
     android:verticalScrollbarPosition="right"
     tools:context=".QueryReportsActivity">
 
+    <Button
+        android:id="@+id/queryButton"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/primary_button"
+        android:fontFamily="sans-serif-medium"
+        android:onClick="onQueryButtonClick"
+        android:text="Search"
+        android:textAllCaps="false"
+        app:cornerRadius="50dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView" />
+
     <TextView
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="148dp"
+        android:layout_marginTop="70dp"
         android:fontFamily="sans-serif-medium"
         android:text="Query reports"
         android:textColor="@color/black"
@@ -33,10 +49,10 @@
 
         <EditText
             android:id="@+id/searchTextView"
-            android:layout_width="244dp"
+            android:layout_width="297dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/black"
+            android:backgroundTint="@android:color/darker_gray"
             android:ems="10"
             android:inputType="textPersonName"
             android:singleLine="true"
@@ -55,18 +71,43 @@
             android:backgroundTint="@android:color/transparent"
             android:onClick="addChipToGroup"
             android:tint="@color/black"
-            app:srcCompat="@android:drawable/ic_menu_search" />
+            app:srcCompat="@android:drawable/ic_menu_add" />
     </LinearLayout>
 
-    <com.google.android.material.chip.ChipGroup
-        android:id="@+id/searchChipGroup"
+    <HorizontalScrollView
+        android:id="@+id/horizontalScrollView"
         android:layout_width="350dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="30dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:scrollbars="none"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/searchBar">
 
-    </com.google.android.material.chip.ChipGroup>
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/searchChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/searchBar" />
+    </HorizontalScrollView>
+
+    <ScrollView
+        android:layout_width="350dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/queryButton">
+
+        <LinearLayout
+            android:id="@+id/searchResultsContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
