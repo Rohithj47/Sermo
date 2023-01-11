@@ -15,8 +15,8 @@ public class ViewReportActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_report);
 
         Intent intent = getIntent();
-        TextView textView = findViewById(R.id.reportTitle);
-        Log.d("Object", String.valueOf(textView));
-        textView.setText(intent.getStringExtra("tag"));
+        //TextView textView = findViewById(R.id.reportTitle);
+        //Log.d("Object", String.valueOf(textView));
+        //textView.setText(intent.getStringExtra("tag"));
     }
 }
