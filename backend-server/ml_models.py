@@ -28,7 +28,7 @@ def condensed_text(path):
     speech, rate = librosa.load(path, sr = 16000)
     final_text = ""
 
-    splits = librosa.effects.split(speech, top_db=30)
+    splits = librosa.effects.split(speech, top_db=10)
     for beg, end in splits:
         y = speech[beg: end]
         if len(y) < 10:
