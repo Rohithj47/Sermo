@@ -28,6 +28,10 @@ def summarize():
             m4a_paths = []
             wav_paths = []
             final_patient_record = ""
+            patient_reports = {}
+            name = request.form.get('fullname')
+            age = request.form.get('age')
+            gender = request.form.get('gender')
             for i in range(len(file_names)):
                 files.append(request.files[file_names[i]])
             for i in range(len(files)):
@@ -36,19 +40,22 @@ def summarize():
                 files[i].save(m4a_paths[i])
                 track = AudioSegment.from_file(m4a_paths[i],  format= 'm4a')
                 track.export(wav_paths[i], format='wav')
-                final_patient_record += condensed_text(wav_paths[i])
+                patient_reports[file_names[i]] = condensed_text(wav_paths[i])
+                final_patient_record += patient_reports[file_names[i]]
 
         print("final Text is", final_patient_record)
         keywords = return_keywords(final_patient_record)
+        keywords.append(gender)
+        keywords.append(age)
         print("Keywords from test is", keywords)
 
         delete_recordings(m4a_paths, wav_paths)
 
-        db = get_database()
-        # client = MongoClient("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.gbvuu.mongodb.net/Sermo?retryWrites=true&w=majority")
-        # db = client['Sermo'].Sermo
+        # db = get_database()
+        client = MongoClient("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.gbvuu.mongodb.net/Sermo?retryWrites=true&w=majority")
+        db = client['Sermo'].Sermo
 
-        x = db.insert_one({ "Name": "Test1", "Keywords": [], "Report" : final_patient_record })
+        x = db.insert_one({ "full_name": name, "age": age, "gender": gender, "Keywords": [], "Report" : final_patient_record, "consultation_summary": patient_reports["patient_recording"], "operation_summary": patient_reports["surgery_conversation"], "review_summary": patient_reports["doctor_review"]})
         db.update_one({'_id': x.inserted_id}, {'$push' : {'Keywords' : {'$each' : keywords}}})
 
         return final_patient_record             
@@ -59,9 +66,9 @@ def search_documents():
     if request.method == 'POST':
         val = request.json
         tags = val['tags']
-        # client = MongoClient("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.gbvuu.mongodb.net/Sermo?retryWrites=true&w=majority")
-        # db = client['Sermo'].Sermo
-        db = get_database()
+        client = MongoClient("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.gbvuu.mongodb.net/Sermo?retryWrites=true&w=majority")
+        db = client['Sermo'].Sermo
+        # db = get_database()
         docs = list(db.find({}))
         for doc in docs:
             matched = 0
@@ -71,10 +78,22 @@ def search_documents():
             doc['Matched'] = matched
 
         docs.sort(key= lambda doc: doc['Matched'], reverse= True)
-        print(json.loads(json_util.dumps(docs)))
-        return json.loads(json_util.dumps(docs))
+        return prepare_payload(docs)
         
 
+def prepare_payload(docs):
+    payload = {}
+    ret = []
+    for doc in docs:
+        doc.pop('Keywords')
+        doc.pop('Report')
+        doc.pop('Matched')
+        doc['id'] = str(doc['_id'])
+        doc.pop('_id')
+    payload["reports"] = docs
+    ret = []
+    ret.append(payload)
+    return ret
 
 def get_database():
     #Returns the database connection to MongoURL
