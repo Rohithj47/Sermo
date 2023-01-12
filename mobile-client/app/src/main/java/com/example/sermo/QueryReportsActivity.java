@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewParent;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.android.material.chip.Chip;
@@ -57,6 +59,11 @@ public class QueryReportsActivity extends AppCompatActivity {
     }
 
     public void onQueryButtonClick(View view) {
+        Button queryButton = findViewById(R.id.QueryButton);
+        ProgressBar reportQueryingSpinner = findViewById(R.id.ReportQueryingSpinner);
+        queryButton.setVisibility(View.INVISIBLE);
+        reportQueryingSpinner.setVisibility(View.VISIBLE);
+
         API api = RetrofitClient.getInstance().getAPI();
         QueryBody queryBody = new QueryBody(this.tags);
 
@@ -65,11 +72,15 @@ public class QueryReportsActivity extends AppCompatActivity {
             @Override
             public void onResponse(Call<List<ReportsCollection>> call,
                                    Response<List<ReportsCollection>> response) {
+                queryButton.setVisibility(View.VISIBLE);
+                reportQueryingSpinner.setVisibility(View.INVISIBLE);
                 populateSearchResultsContainer(view, response.body());
             }
 
             @Override
             public void onFailure(Call<List<ReportsCollection>> call, Throwable t) {
+                queryButton.setVisibility(View.VISIBLE);
+                reportQueryingSpinner.setVisibility(View.INVISIBLE);
                 Log.d("ERROR", t.toString());
             }
         });

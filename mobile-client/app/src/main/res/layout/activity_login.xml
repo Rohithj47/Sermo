@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:backgroundTint="@color/background_tint"
+    android:backgroundTintMode="src_over"
+    tools:context=".LoginActivity">
+
+    <TextView
+        android:id="@+id/UsernameLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Username"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/UsernameField"
+        app:layout_constraintTop_toBottomOf="@+id/AppLoginHeading" />
+
+    <TextView
+        android:id="@+id/PasswordLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Password"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PasswordField"
+        app:layout_constraintTop_toBottomOf="@+id/UsernameField" />
+
+    <Button
+        android:id="@+id/LoginButton"
+        android:layout_width="170dp"
+        android:layout_height="70dp"
+        android:layout_marginTop="70dp"
+        android:backgroundTint="@color/primary_button"
+        android:fontFamily="sans-serif-medium"
+        android:letterSpacing="0.05"
+        android:onClick="login"
+        android:text="Login"
+        android:textAllCaps="false"
+        android:textColor="@color/primary_button_text"
+        app:cornerRadius="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordField"
+        app:rippleColor="@color/primary_button_ripple" />
+
+    <TextView
+        android:id="@+id/AppLoginHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:background="@color/transparent"
+        android:fontFamily="cursive"
+        android:text="Sermo"
+        android:textColor="@color/primary_text"
+        android:textSize="48sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/UsernameField"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        android:textColor="@color/primary_text"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/UsernameLabel" />
+
+    <EditText
+        android:id="@+id/PasswordField"
+        android:layout_width="270dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
+        android:ems="10"
+        android:fontFamily="sans-serif-light"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        android:textColor="@color/primary_text"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/PasswordLabel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
