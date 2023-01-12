@@ -71,32 +71,33 @@
         android:ems="10"
         android:fontFamily="sans-serif-medium"
         android:inputType="number"
+        android:padding="8dp"
         android:textColor="@color/primary_text"
         android:textSize="14sp"
         app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
         app:layout_constraintTop_toBottomOf="@+id/PatientAgeLabel" />
 
     <TextView
-        android:id="@+id/PatientSexLabel"
+        android:id="@+id/PatientGenderLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif-medium"
-        android:text="Sex"
+        android:text="Gender"
         android:textColor="@color/primary_text"
         app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
         app:layout_constraintTop_toBottomOf="@+id/PatientAgeField" />
 
     <RadioGroup
-        android:id="@+id/PatientSexRadioGroup"
+        android:id="@+id/PatientGenderRadioGroup"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:orientation="horizontal"
         android:padding="2dp"
         app:layout_constraintStart_toStartOf="@+id/PatientFullNameField"
-        app:layout_constraintTop_toBottomOf="@+id/PatientSexLabel">
+        app:layout_constraintTop_toBottomOf="@+id/PatientGenderLabel">
 
         <RadioButton
             android:id="@+id/MaleRadioButton"
@@ -134,7 +135,7 @@
         android:textColor="@color/primary_text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/PatientInformationLinearLayout"
-        app:layout_constraintTop_toBottomOf="@+id/PatientSexRadioGroup" />
+        app:layout_constraintTop_toBottomOf="@+id/PatientGenderRadioGroup" />
 
     <TextView
         android:id="@+id/textView"
@@ -176,7 +177,7 @@
             android:hint="No file selected"
             android:singleLine="true"
             android:textAlignment="textStart"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/primary_text" />
 
         <ImageButton
             android:id="@+id/PatientInformationSearchButton"
@@ -233,7 +234,7 @@
             android:hint="No file selected"
             android:singleLine="true"
             android:textAlignment="textStart"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/primary_text" />
 
         <ImageButton
             android:id="@+id/SurgeryRecordingSearchButton"
@@ -289,7 +290,7 @@
             android:hint="No file selected"
             android:singleLine="true"
             android:textAlignment="textStart"
-            android:textColor="@android:color/darker_gray" />
+            android:textColor="@color/primary_text" />
 
         <ImageButton
             android:id="@+id/DoctorReviewSearchButton"

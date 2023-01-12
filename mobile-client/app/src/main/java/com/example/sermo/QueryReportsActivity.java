@@ -1,13 +1,10 @@
 package com.example.sermo;
 
-import static android.app.PendingIntent.getActivity;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.content.res.ColorStateList;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,11 +16,9 @@ import android.widget.TextView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
-import org.w3c.dom.Text;
-
 import java.util.HashSet;
+import java.util.List;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -45,8 +40,8 @@ public class QueryReportsActivity extends AppCompatActivity {
         chip.setText(textView.getText());
         this.tags.add(textView.getText().toString());
         chip.setCloseIconVisible(true);
-        chip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.primary_text)));
-        // chip.setChipBackgroundColorResource(android.R.color.transparent);
+        chip.setChipBackgroundColor(ColorStateList.valueOf(ContextCompat.getColor(this,
+                R.color.primary_text)));
         chip.setOnClickListener(v -> {
             ViewParent parent = v.getParent();
             if (parent instanceof ViewGroup) {
@@ -62,40 +57,39 @@ public class QueryReportsActivity extends AppCompatActivity {
     }
 
     public void onQueryButtonClick(View view) {
-        for (String tag : this.tags) {
-            Log.d("TAGS: ", tag);
-        }
         API api = RetrofitClient.getInstance().getAPI();
         QueryBody queryBody = new QueryBody(this.tags);
-        Call<ResponseBody> upload = api.queryByTags(queryBody);
-        upload.enqueue(new Callback<ResponseBody>() {
+
+        Call<List<ReportsCollection>> upload = api.searchReports(queryBody);
+        upload.enqueue(new Callback<List<ReportsCollection>>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                Log.d("RES", response.toString());
+            public void onResponse(Call<List<ReportsCollection>> call,
+                                   Response<List<ReportsCollection>> response) {
+                populateSearchResultsContainer(view, response.body());
             }
 
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<List<ReportsCollection>> call, Throwable t) {
                 Log.d("ERROR", t.toString());
             }
         });
-        populateSearchResultsContainer(view);
     }
 
-    private void populateSearchResultsContainer(View view) {
+    private void populateSearchResultsContainer(View view, List<ReportsCollection> reportsCollection) {
         LinearLayout searchResultsContainer = findViewById(R.id.searchResultsContainer);
-        for (String tag : tags) {
+        searchResultsContainer.removeAllViews();
+        for (Report report : reportsCollection.get(0).getReports()) {
             TextView textView = new TextView(QueryReportsActivity.this);
-            String textViewContent = "".concat("Fullname, Age, Sex")
-                    .concat("\n")
-                    .concat("Peek content ")
-                    .concat("(").concat(tag).concat(")")
+            String textViewContent = ""
+                    .concat("Name: ").concat(report.getFull_name()).concat("\n")
+                    .concat("Age (").concat(report.getAge()).concat("), ")
+                    .concat("Gender (").concat(report.getGender()).concat(")")
                     .concat("\n").concat("\n");
             textView.setText(textViewContent);
             textView.setTextColor(ContextCompat.getColor(this, R.color.primary_text));
             textView.setOnClickListener(v -> {
                 Intent intent = new Intent(this, ViewReportActivity.class);
-                intent.putExtra("tag", tag);
+                intent.putExtra("report", report);
                 startActivity(intent);
             });
             searchResultsContainer.addView(textView);

@@ -12,6 +12,55 @@
     tools:layout_editor_absoluteY="62dp">
 
     <TextView
+        android:id="@+id/PatientInformationDisplayHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-black"
+        android:text="Patient information"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/ReportSummariesDisplayHeading"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PatientNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Name :"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
+        app:layout_constraintTop_toBottomOf="@+id/PatientInformationDisplayHeading" />
+
+    <TextView
+        android:id="@+id/PatientAgeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Age :"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
+        app:layout_constraintTop_toBottomOf="@+id/PatientNameDisplay" />
+
+    <TextView
+        android:id="@+id/PatientGenderDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Gender : "
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
+        app:layout_constraintTop_toBottomOf="@+id/PatientAgeDisplay" />
+
+    <TextView
         android:id="@+id/ConsultationSummaryHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -93,19 +142,6 @@
         app:layout_constraintTop_toBottomOf="@+id/DoctorReviewHeading" />
 
     <TextView
-        android:id="@+id/PatientInformationDisplayHeading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:background="@color/transparent"
-        android:fontFamily="sans-serif-black"
-        android:text="Patient information"
-        android:textColor="@color/primary_text"
-        android:textSize="16sp"
-        app:layout_constraintStart_toStartOf="@+id/ReportSummariesDisplayHeading"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/ReportSummariesDisplayHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -116,41 +152,7 @@
         android:textColor="@color/primary_text"
         android:textSize="16sp"
         app:layout_constraintStart_toStartOf="@+id/ConsultationSummaryContent"
-        app:layout_constraintTop_toBottomOf="@+id/patientNameDisplay" />
+        app:layout_constraintTop_toBottomOf="@+id/PatientGenderDisplay" />
 
-    <TextView
-        android:id="@+id/PatientNameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/transparent"
-        android:fontFamily="sans-serif-medium"
-        android:text="Name :"
-        android:textColor="@color/primary_text"
-        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
-        app:layout_constraintTop_toBottomOf="@+id/PatientInformationDisplayHeading" />
 
-    <TextView
-        android:id="@+id/patientNameDisplay"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/transparent"
-        android:fontFamily="sans-serif-medium"
-        android:text="Sex : "
-        android:textColor="@color/primary_text"
-        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
-        app:layout_constraintTop_toBottomOf="@+id/patientNameDisplay2" />
-
-    <TextView
-        android:id="@+id/patientNameDisplay2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@color/transparent"
-        android:fontFamily="sans-serif-medium"
-        android:text="Age :"
-        android:textColor="@color/primary_text"
-        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
-        app:layout_constraintTop_toBottomOf="@+id/PatientNameDisplay" />
 </androidx.constraintlayout.widget.ConstraintLayout>
