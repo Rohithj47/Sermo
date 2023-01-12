@@ -4,19 +4,155 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ViewReportActivity">
+    android:background="@drawable/background"
+    android:backgroundTint="#80FFFFFF"
+    android:backgroundTintMode="src_over"
+    tools:context=".ViewReportActivity"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="62dp">
 
     <TextView
-        android:id="@+id/reportTitle"
+        android:id="@+id/PatientInformationDisplayHeading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="70dp"
-        android:fontFamily="sans-serif-medium"
-        android:text="Report title"
-        android:textColor="@color/black"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="50dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-black"
+        android:text="Patient information"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/ReportSummariesDisplayHeading"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/PatientNameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Name :"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
+        app:layout_constraintTop_toBottomOf="@+id/PatientInformationDisplayHeading" />
+
+    <TextView
+        android:id="@+id/PatientAgeDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Age :"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
+        app:layout_constraintTop_toBottomOf="@+id/PatientNameDisplay" />
+
+    <TextView
+        android:id="@+id/PatientGenderDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Gender : "
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/PatientInformationDisplayHeading"
+        app:layout_constraintTop_toBottomOf="@+id/PatientAgeDisplay" />
+
+    <TextView
+        android:id="@+id/ConsultationSummaryHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Consultation"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/ConsultationSummaryContent"
+        app:layout_constraintTop_toBottomOf="@+id/ReportSummariesDisplayHeading" />
+
+    <TextView
+        android:id="@+id/ConsultationSummaryContent"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textColor="@color/primary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ConsultationSummaryHeading" />
+
+    <TextView
+        android:id="@+id/OperationSummaryHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Operation"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/OperationSummaryContent"
+        app:layout_constraintTop_toBottomOf="@+id/ConsultationSummaryContent" />
+
+    <TextView
+        android:id="@+id/OperationSummaryContent"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textColor="@color/primary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/OperationSummaryHeading" />
+
+    <TextView
+        android:id="@+id/DoctorReviewHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-medium"
+        android:text="Doctor's review"
+        android:textColor="@color/primary_text"
+        app:layout_constraintStart_toStartOf="@+id/DoctorReviewContent"
+        app:layout_constraintTop_toBottomOf="@+id/OperationSummaryContent" />
+
+    <TextView
+        android:id="@+id/DoctorReviewContent"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/shape"
+        android:fontFamily="sans-serif-light"
+        android:padding="10dp"
+        android:text="TextView"
+        android:textColor="@color/primary_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.491"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/DoctorReviewHeading" />
+
+    <TextView
+        android:id="@+id/ReportSummariesDisplayHeading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:background="@color/transparent"
+        android:fontFamily="sans-serif-black"
+        android:text="Report summaries"
+        android:textColor="@color/primary_text"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/ConsultationSummaryContent"
+        app:layout_constraintTop_toBottomOf="@+id/PatientGenderDisplay" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

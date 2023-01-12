@@ -1,9 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="primary_background">#F9F9F9</color>
-    <color name="primary_button">#CDF0EA</color>
+    <color name="primary_background">#FFFFFF</color>
+    <color name="background_tint">#B2FFFFFF</color>
+    <color name="primary_button">#FFFFFFFF</color>
+    <color name="primary_button_text">#15255A</color>
+    <color name="primary_button_ripple">#65FFFFFF</color>
+    <color name="primary_text">#15255A</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="text_hint">#808080</color>
     <color name="text_line">#808080</color>
+    <color name="transparent">#00FFFFFF</color>
 </resources>

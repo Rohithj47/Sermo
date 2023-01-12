@@ -15,6 +15,9 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
@@ -54,7 +57,25 @@ public class GenerateReportActivity extends AppCompatActivity {
                     Intent data = result.getData();
                     if (data != null) {
                         Uri sUri = data.getData();
+                        File file = new File(sUri.getPath());
                         selectedFileUris.put(selectedFile, sUri);
+                        TextView filepathDisplay;
+                        switch (selectedFile.toString()) {
+                            case "PATIENT_RECORDING":
+                                filepathDisplay = findViewById(R.id.PatientInformationFilePath);
+                                filepathDisplay.setText(file.getName());
+                                break;
+                            case "SURGERY_CONVERSATION":
+                                filepathDisplay = findViewById(R.id.SurgeryRecordingFilePath);
+                                filepathDisplay.setText(file.getName());
+                                break;
+                            case "DOCTOR_REVIEW":
+                                filepathDisplay = findViewById(R.id.DoctorReviewFilePath);
+                                filepathDisplay.setText(file.getName());
+                                break;
+                            default:
+                                break;
+                        }
                     }
                 });
     }
@@ -75,6 +96,20 @@ public class GenerateReportActivity extends AppCompatActivity {
     }
 
     public void onGenerateButtonClick(View view) {
+        TextView patientFullNameField = findViewById(R.id.PatientFullNameField);
+        TextView patientAgeField = findViewById(R.id.PatientAgeField);
+        RadioGroup patientGenderRadioGroup = findViewById(R.id.PatientGenderRadioGroup);
+        int radioButtonID = patientGenderRadioGroup.getCheckedRadioButtonId();
+        RadioButton radioButton = patientGenderRadioGroup.findViewById(radioButtonID);
+
+        String fullName = patientFullNameField.getText().toString();
+        String age = patientAgeField.getText().toString();
+        String gender = radioButton.getText().toString();
+        //PatientInformationJsonBody patientInformation = new PatientInformationJsonBody(fullName, age, gender);
+        RequestBody agent = RequestBody.create(MediaType.parse("text/plain"), fullName);
+        RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), age);
+        RequestBody manager = RequestBody.create(MediaType.parse("text/plain"), gender);
+
         for (Map.Entry<RecordingType, Uri> entry : selectedFileUris.entrySet()) {
             Log.d(entry.getKey().toString(), entry.getValue().toString());
         }
@@ -112,14 +147,15 @@ public class GenerateReportActivity extends AppCompatActivity {
         }
 
         API api = RetrofitClient.getInstance().getAPI();
-        Call<ResponseBody> upload = api.uploadFiles(fileParts);
+        Call<ResponseBody> upload = api.generateReport(fileParts, agent, phone, manager);
         upload.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(GenerateReportActivity.this,
-                            "Image Uploaded", Toast.LENGTH_SHORT).show();
+                            "Details uploaded successfully! The report will be generated.",
+                            Toast.LENGTH_LONG).show();
                     Intent main = new Intent(
                             GenerateReportActivity.this,
                             GenerateReportActivity.class);
@@ -132,7 +168,7 @@ public class GenerateReportActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 Log.d("ERROR", t.toString());
                 Toast.makeText(GenerateReportActivity.this,
-                        "Request failed" + t.toString(),
+                        "Error" + t.toString(),
                         Toast.LENGTH_SHORT).show();
             }
         });
