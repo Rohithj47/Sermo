@@ -4,14 +4,8 @@ from flask import Flask, request
 from pymongo import MongoClient
 from pydub import AudioSegment
 from os import environ 
-import feature_extraction 
 from ml_models import init_models, return_keywords, condensed_text
-import urllib 
-from bson import json_util
 import json
-
-from transformers import Wav2Vec2ForCTC, Wav2Vec2Tokenizer
-from transformers import pipeline
 
 app = Flask(__name__)
 file_names = ["patient_recording","surgery_conversation", "doctor_review"]
@@ -31,7 +25,7 @@ def summarize():
             patient_reports = {}
             name = request.form.get('fullname')
             age = request.form.get('age')
-            gender = request.form.get('gender')
+            gender = request.form.get('gender').lower()
             for i in range(len(file_names)):
                 files.append(request.files[file_names[i]])
             for i in range(len(files)):
@@ -70,15 +64,18 @@ def search_documents():
         db = client['Sermo'].Sermo
         # db = get_database()
         docs = list(db.find({}))
+        res = []
         for doc in docs:
             matched = 0
             for tag in tags:
-                if tag in doc['Keywords']:
+                if tag.lower() in doc['Keywords']:
                     matched += 1
             doc['Matched'] = matched
+            if matched != 0:
+                res.append(doc)
 
-        docs.sort(key= lambda doc: doc['Matched'], reverse= True)
-        return prepare_payload(docs)
+        res.sort(key= lambda doc: doc['Matched'], reverse= True)
+        return prepare_payload(res)
         
 
 def prepare_payload(docs):
