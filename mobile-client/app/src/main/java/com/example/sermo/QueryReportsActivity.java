@@ -78,6 +78,8 @@ public class QueryReportsActivity extends AppCompatActivity {
                 queryButton.setVisibility(View.VISIBLE);
                 reportQueryingSpinner.setVisibility(View.INVISIBLE);
                 if (response.body().get(0).getReports().size() == 0) {
+                    LinearLayout searchResultsContainer = findViewById(R.id.searchResultsContainer);
+                    searchResultsContainer.removeAllViews();
                     noDataDisplay.setVisibility(View.VISIBLE);
                 } else {
                     populateSearchResultsContainer(view, response.body());
@@ -86,6 +88,8 @@ public class QueryReportsActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<List<ReportsCollection>> call, Throwable t) {
+                LinearLayout searchResultsContainer = findViewById(R.id.searchResultsContainer);
+                searchResultsContainer.removeAllViews();
                 Log.d("ERROR", t.getMessage());
                 queryButton.setVisibility(View.VISIBLE);
                 reportQueryingSpinner.setVisibility(View.INVISIBLE);

@@ -107,9 +107,9 @@ public class GenerateReportActivity extends AppCompatActivity {
         String age = patientAgeField.getText().toString();
 
         if (fullName.equals("") || age.equals("") || radioButtonID == -1
-                || selectedFileUris.containsKey(RecordingType.PATIENT_RECORDING)
-                || selectedFileUris.containsKey(RecordingType.SURGERY_CONVERSATION)
-                || selectedFileUris.containsKey(RecordingType.DOCTOR_REVIEW)) {
+                || !selectedFileUris.containsKey(RecordingType.PATIENT_RECORDING)
+                || !selectedFileUris.containsKey(RecordingType.SURGERY_CONVERSATION)
+                || !selectedFileUris.containsKey(RecordingType.DOCTOR_REVIEW)) {
             Toast toast = Toast.makeText(GenerateReportActivity.this,
                     "\nPlease fill all fields!\n", Toast.LENGTH_LONG);
             toast.show();
