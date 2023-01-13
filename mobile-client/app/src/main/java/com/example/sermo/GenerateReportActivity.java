@@ -15,6 +15,8 @@ import android.os.Bundle;
 import android.os.ParcelFileDescriptor;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -146,6 +148,11 @@ public class GenerateReportActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        Button generateButton = findViewById(R.id.GenerateButton);
+        ProgressBar reportGeneratingSpinner = findViewById(R.id.ReportGeneratingSpinner);
+        generateButton.setVisibility(View.INVISIBLE);
+        reportGeneratingSpinner.setVisibility(View.VISIBLE);
+
         API api = RetrofitClient.getInstance().getAPI();
         Call<ResponseBody> upload = api.generateReport(fileParts, agent, phone, manager);
         upload.enqueue(new Callback<ResponseBody>() {
@@ -153,6 +160,8 @@ public class GenerateReportActivity extends AppCompatActivity {
             public void onResponse(Call<ResponseBody> call,
                                    Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
+                    generateButton.setVisibility(View.VISIBLE);
+                    reportGeneratingSpinner.setVisibility(View.INVISIBLE);
                     Toast.makeText(GenerateReportActivity.this,
                             "Details uploaded successfully! The report will be generated.",
                             Toast.LENGTH_LONG).show();
@@ -166,6 +175,8 @@ public class GenerateReportActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                generateButton.setVisibility(View.VISIBLE);
+                reportGeneratingSpinner.setVisibility(View.INVISIBLE);
                 Log.d("ERROR", t.toString());
                 Toast.makeText(GenerateReportActivity.this,
                         "Error" + t.toString(),

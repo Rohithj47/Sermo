@@ -10,8 +10,22 @@
     android:verticalScrollbarPosition="right"
     tools:context=".QueryReportsActivity">
 
+    <ProgressBar
+        android:id="@+id/ReportQueryingSpinner"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/transparent"
+        android:indeterminateTint="@color/primary_text"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
     <Button
-        android:id="@+id/queryButton"
+        android:id="@+id/QueryButton"
         android:layout_width="170dp"
         android:layout_height="70dp"
         android:layout_marginTop="20dp"
@@ -38,7 +52,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/queryButton">
+        app:layout_constraintTop_toBottomOf="@+id/QueryButton">
 
         <LinearLayout
             android:id="@+id/searchResultsContainer"
