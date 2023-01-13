@@ -1,5 +1,4 @@
 import feature_extraction 
-from transformers import pipeline
 import requests
 
 
