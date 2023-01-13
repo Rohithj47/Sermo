@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
@@ -63,6 +64,8 @@ public class QueryReportsActivity extends AppCompatActivity {
         ProgressBar reportQueryingSpinner = findViewById(R.id.ReportQueryingSpinner);
         queryButton.setVisibility(View.INVISIBLE);
         reportQueryingSpinner.setVisibility(View.VISIBLE);
+        TextView noDataDisplay = findViewById(R.id.NoDataDisplay);
+        noDataDisplay.setVisibility(View.INVISIBLE);
 
         API api = RetrofitClient.getInstance().getAPI();
         QueryBody queryBody = new QueryBody(this.tags);
@@ -74,14 +77,23 @@ public class QueryReportsActivity extends AppCompatActivity {
                                    Response<List<ReportsCollection>> response) {
                 queryButton.setVisibility(View.VISIBLE);
                 reportQueryingSpinner.setVisibility(View.INVISIBLE);
-                populateSearchResultsContainer(view, response.body());
+                if (response.body().get(0).getReports().size() == 0) {
+                    noDataDisplay.setVisibility(View.VISIBLE);
+                } else {
+                    populateSearchResultsContainer(view, response.body());
+                }
             }
 
             @Override
             public void onFailure(Call<List<ReportsCollection>> call, Throwable t) {
+                Log.d("ERROR", t.getMessage());
                 queryButton.setVisibility(View.VISIBLE);
                 reportQueryingSpinner.setVisibility(View.INVISIBLE);
-                Log.d("ERROR", t.toString());
+                noDataDisplay.setVisibility(View.VISIBLE);
+                int toastDuration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(QueryReportsActivity.this,
+                        "\nEncountered an issue, please try again later!\n", toastDuration);
+                toast.show();
             }
         });
     }

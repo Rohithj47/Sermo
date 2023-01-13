@@ -102,15 +102,25 @@ public class GenerateReportActivity extends AppCompatActivity {
         TextView patientAgeField = findViewById(R.id.PatientAgeField);
         RadioGroup patientGenderRadioGroup = findViewById(R.id.PatientGenderRadioGroup);
         int radioButtonID = patientGenderRadioGroup.getCheckedRadioButtonId();
-        RadioButton radioButton = patientGenderRadioGroup.findViewById(radioButtonID);
 
         String fullName = patientFullNameField.getText().toString();
         String age = patientAgeField.getText().toString();
+
+        if (fullName.equals("") || age.equals("") || radioButtonID == -1
+                || selectedFileUris.containsKey(RecordingType.PATIENT_RECORDING)
+                || selectedFileUris.containsKey(RecordingType.SURGERY_CONVERSATION)
+                || selectedFileUris.containsKey(RecordingType.DOCTOR_REVIEW)) {
+            Toast toast = Toast.makeText(GenerateReportActivity.this,
+                    "\nPlease fill all fields!\n", Toast.LENGTH_LONG);
+            toast.show();
+            return;
+        }
+
+        RadioButton radioButton = patientGenderRadioGroup.findViewById(radioButtonID);
         String gender = radioButton.getText().toString();
-        //PatientInformationJsonBody patientInformation = new PatientInformationJsonBody(fullName, age, gender);
-        RequestBody agent = RequestBody.create(MediaType.parse("text/plain"), fullName);
-        RequestBody phone = RequestBody.create(MediaType.parse("text/plain"), age);
-        RequestBody manager = RequestBody.create(MediaType.parse("text/plain"), gender);
+        RequestBody fullNameReqBod = RequestBody.create(MediaType.parse("text/plain"), fullName);
+        RequestBody phoneReqBod = RequestBody.create(MediaType.parse("text/plain"), age);
+        RequestBody managerReqBod = RequestBody.create(MediaType.parse("text/plain"), gender);
 
         for (Map.Entry<RecordingType, Uri> entry : selectedFileUris.entrySet()) {
             Log.d(entry.getKey().toString(), entry.getValue().toString());
@@ -154,7 +164,7 @@ public class GenerateReportActivity extends AppCompatActivity {
         reportGeneratingSpinner.setVisibility(View.VISIBLE);
 
         API api = RetrofitClient.getInstance().getAPI();
-        Call<ResponseBody> upload = api.generateReport(fileParts, agent, phone, manager);
+        Call<ResponseBody> upload = api.generateReport(fileParts, fullNameReqBod, phoneReqBod, managerReqBod);
         upload.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call,
@@ -163,7 +173,7 @@ public class GenerateReportActivity extends AppCompatActivity {
                     generateButton.setVisibility(View.VISIBLE);
                     reportGeneratingSpinner.setVisibility(View.INVISIBLE);
                     Toast.makeText(GenerateReportActivity.this,
-                            "Details uploaded successfully! The report will be generated.",
+                            "\nSuccessfully generated the report!\n",
                             Toast.LENGTH_LONG).show();
                     Intent main = new Intent(
                             GenerateReportActivity.this,
@@ -175,12 +185,14 @@ public class GenerateReportActivity extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.d("ERROR", t.getMessage());
                 generateButton.setVisibility(View.VISIBLE);
                 reportGeneratingSpinner.setVisibility(View.INVISIBLE);
-                Log.d("ERROR", t.toString());
-                Toast.makeText(GenerateReportActivity.this,
-                        "Error" + t.toString(),
-                        Toast.LENGTH_SHORT).show();
+                int toastDuration = Toast.LENGTH_LONG;
+                Toast toast = Toast.makeText(GenerateReportActivity.this,
+                        "\nEncountered an issue, please try again later!\n", toastDuration);
+                toast.show();
+
             }
         });
     }
@@ -193,7 +205,7 @@ public class GenerateReportActivity extends AppCompatActivity {
                 == PackageManager.PERMISSION_GRANTED) {
             selectFile();
         } else {
-            Toast.makeText(getApplicationContext(), "Permission Denied", Toast.LENGTH_SHORT)
+            Toast.makeText(getApplicationContext(), "\nPermission Denied\n", Toast.LENGTH_SHORT)
                     .show();
         }
     }

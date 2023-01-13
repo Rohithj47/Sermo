@@ -43,6 +43,7 @@
         app:rippleColor="@color/primary_button_ripple" />
 
     <ScrollView
+        android:id="@+id/scrollView3"
         android:layout_width="350dp"
         android:layout_height="0dp"
         android:layout_marginTop="20dp"
@@ -57,8 +58,10 @@
         <LinearLayout
             android:id="@+id/searchResultsContainer"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" />
+            android:layout_height="200dp"
+            android:backgroundTint="@color/text_hint"
+            android:orientation="vertical"
+            android:translationZ="10dp" />
     </ScrollView>
 
     <LinearLayout
@@ -129,5 +132,18 @@
                 app:layout_constraintTop_toBottomOf="@+id/searchBar" />
         </HorizontalScrollView>
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/NoDataDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-light"
+        android:text="No data! Check filters."
+        android:textColor="@color/text_hint"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/scrollView3"
+        app:layout_constraintEnd_toEndOf="@+id/scrollView3"
+        app:layout_constraintStart_toStartOf="@+id/scrollView3"
+        app:layout_constraintTop_toTopOf="@+id/scrollView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
