@@ -200,7 +200,7 @@
         android:layout_marginTop="10dp"
         android:background="@android:color/transparent"
         android:fontFamily="sans-serif-medium"
-        android:text="Operation"
+        android:text="Surgery"
         android:textColor="@color/primary_text"
         app:layout_constraintStart_toStartOf="@+id/SurgeryRecordingLinearLayout"
         app:layout_constraintTop_toBottomOf="@+id/PatientInformationLinearLayout" />

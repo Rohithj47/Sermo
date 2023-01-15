@@ -175,11 +175,8 @@ public class GenerateReportActivity extends AppCompatActivity {
                     Toast.makeText(GenerateReportActivity.this,
                             "\nSuccessfully generated the report!\n",
                             Toast.LENGTH_LONG).show();
-                    Intent main = new Intent(
-                            GenerateReportActivity.this,
-                            GenerateReportActivity.class);
-                    main.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                    startActivity(main);
+                    finish();
+                    startActivity(getIntent());
                 }
             }
 
