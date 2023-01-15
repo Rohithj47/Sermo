@@ -31,30 +31,16 @@ Sermo is an AI-powered intelligent report generation tool. It uses audio recordi
 
 ### Built With
 
-* [![Next][Next.js]][Next-url]
-* [![Flask][flask]]
-* [![Android-Studio][android-studio]
-* [![Java][java]]
-* [![PyTorch][pytorch]]
+* ![Flask][flask]
+* ![Android-Studio][android-studio]
+* ![Java][java]
+* ![PyTorch][pytorch]
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
 
 <!-- GETTING STARTED -->
-## Getting Started
-
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
-
-### Prerequisites
-
-This is an example of how to list things you need to use the software and how to install them.
-* npm
-  ```sh
-  npm install npm@latest -g
-  ```
-
 ### Installation
 
 Currently the backend is hosted on an EC2 instance and therefore needs no setup.
@@ -70,30 +56,8 @@ Once this is entered on the mobile app, a user can then create new reports by up
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
-_For more examples, please refer to the [Documentation](https://example.com)_
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additionally Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
-
-See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
+The YouTube link contains the a video about Sermo followed by a demo of the application.
+[Youtube-link]
 
 <!-- CONTRIBUTING -->
 ## Contributing
@@ -123,3 +87,4 @@ Don't forget to give the project a star! Thanks again!
 [android-studio]: https://img.shields.io/badge/Android%20Studio-3DDC84.svg?style=for-the-badge&logo=android-studio&logoColor=white
 [java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white
 [pytorch]: https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white
+[Youtube-link]: https://youtu.be/U_degTPq1X4
