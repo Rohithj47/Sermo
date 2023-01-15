@@ -9,6 +9,7 @@ import json
 
 app = Flask(__name__)
 file_names = ["patient_recording","surgery_conversation", "doctor_review"]
+CONNECTION_STRING = environ.get('MONGOURI')
 
 @app.route('/hi')
 def hello():
@@ -45,8 +46,7 @@ def summarize():
 
         delete_recordings(m4a_paths, wav_paths)
 
-        # db = get_database()
-        client = MongoClient("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.gbvuu.mongodb.net/Sermo?retryWrites=true&w=majority")
+        client = MongoClient(CONNECTION_STRING)
         db = client['Sermo'].Sermo
 
         x = db.insert_one({ "full_name": name, "age": age, "gender": gender, "Keywords": [], "Report" : final_patient_record, "consultation_summary": patient_reports["patient_recording"], "operation_summary": patient_reports["surgery_conversation"], "review_summary": patient_reports["doctor_review"]})
@@ -60,7 +60,7 @@ def search_documents():
     if request.method == 'POST':
         val = request.json
         tags = val['tags']
-        client = MongoClient("mongodb+srv://m001-student:m001-mongodb-basics@cluster0.gbvuu.mongodb.net/Sermo?retryWrites=true&w=majority")
+        client = MongoClient(CONNECTION_STRING)
         db = client['Sermo'].Sermo
         # db = get_database()
         docs = list(db.find({}))
@@ -91,12 +91,6 @@ def prepare_payload(docs):
     ret = []
     ret.append(payload)
     return ret
-
-def get_database():
-    #Returns the database connection to MongoURL
-   CONNECTION_STRING = environ.get('MONGOURI')
-   client = MongoClient(CONNECTION_STRING)
-   return client['Sermo'].Sermo
 
 def delete_recordings(m4a_paths, wav_paths):
     #Deletes the static file paths => No reason to persist.
