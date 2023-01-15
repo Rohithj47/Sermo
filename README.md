@@ -2,11 +2,9 @@
 
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="80" height="80">
+  <a href="https://github.com/rahuls98/Sermo">
+    <img src="screenshots/Sermo_logo.png" alt="Logo" width="160" height="80">
   </a>
-
-  <h3 align="center">Sermo</h3>
 
   <p align="center">
     Sermo is an AI-powered intelligent report generation tool. It uses audio recordings from different stages of surgeries to generate impactful, summarized reports. It also allows using keywords to search and filter the documents based on need.
@@ -18,7 +16,7 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+<img src="https://github.com/rahuls98/Sermo/blob/main/screenshots/3.jpeg" alt="Logo" width="160" height="260">
 
 Sermo is an AI-powered intelligent report generation tool. It uses audio recordings from different stages of surgeries to generate impactful, summarized reports. It also allows using keywords to search and filter the documents based on need.
 *    Critical information, such as anomalies discussed verbally or additional tools required during surgery, can be extracted and documented from simple audio recordings.
@@ -46,6 +44,10 @@ Sermo is an AI-powered intelligent report generation tool. It uses audio recordi
 Currently the backend is hosted on an EC2 instance and therefore needs no setup.
 
 The mobile client can be downloaded on an Android device by using the APK.
+<br />
+<a href="https://github.com/rahuls98/Sermo/blob/main/mobile-client/app/release/app-release.apk">
+  Download app-release.apk
+</a>
 
 The credentials needed to login:
 Username: test@gmail.com
@@ -88,3 +90,4 @@ Don't forget to give the project a star! Thanks again!
 [java]: https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=java&logoColor=white
 [pytorch]: https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white
 [Youtube-link]: https://youtu.be/U_degTPq1X4
+[Sermo_img]: https://github.com/rahuls98/Sermo/blob/main/screenshots/3.jpeg
