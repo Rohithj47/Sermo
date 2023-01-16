@@ -18,9 +18,7 @@
 
 <img src="https://github.com/rahuls98/Sermo/blob/main/screenshots/3.jpeg" alt="Logo" width="160" height="260">
 
-Sermo is an AI-powered intelligent report generation tool. It uses audio recordings from different stages of surgeries to generate impactful, summarized reports. It also allows using keywords to search and filter the documents based on need.
-*    Critical information, such as anomalies discussed verbally or additional tools required during surgery, can be extracted and documented from simple audio recordings.
-*    Medical professionals can compile a comprehensive collection of reports as a valuable reference in the future for similar cases and prepare for surgeries.
+Sermo is an AI-powered intelligent report generation and visualization tool. Using Sermo, a medical staff has to simply record any informal conversation they have with the patient ands hit submit. Our backend will generate queryable and impactuful reports that will serve as actionable and insightful information for future use. Using the power of Machine Leanring & TextRank algorithms, the search functionality in Sermo will display only the most relevant and helpful reports that will aid surgeons(or medical professionals) in their upcoming operations.
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
