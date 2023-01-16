@@ -59,19 +59,11 @@ Once this is entered on the mobile app, a user can then create new reports by up
 The YouTube link contains the a video about Sermo followed by a demo of the application.
 [Youtube-link]
 
-<!-- CONTRIBUTING -->
-## Contributing
+<!-- FUTURE WORK -->
+## Future Work
 
-Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-If you have a suggestion that would make this better, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
-Don't forget to give the project a star! Thanks again!
-
-1. Fork the Project
-2. Create your Feature Branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your Changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the Branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
+- We will leverage the data in Sermo to fine train the Machine Learning models, in order for better performance in the future. 
+- We hope to make Sermo cross-platfrom and support iOS and the web as well. 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
